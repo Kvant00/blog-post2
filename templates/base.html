@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+    <head>
+        <title>Base dev</title>
+        <link rel="stylesheet" href = "{% static 'css/base.css' %}">
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="{% url 'home'%}">Sariq dev</a></h1>
+        </header>
+        {% if user.is_authenticated %}
+            <p> Xush kelibsiz {{user.username }} </p>
+            
+            <form id='logout-form' method="post" action="/accounts/logout/">
+                {% csrf_token %}
+                <button type = "submit">Log Out</button>
+            </form>
+        {% else %}
+            <p>
+                <a href = "{% url 'login' %}">Saytga kirish</a> |
+                <a href = "{% url 'signup' %}">Ro'yxatdan o'tish</a>  
+            </p>
+        {% endif %}
+        
+        {% block content %}
+
+        {% endblock %}
+        <footer>
+            <a href="{% url 'post_new' %}">Yangi Post</a>
+        </footer>
+    </body>
+</html>
